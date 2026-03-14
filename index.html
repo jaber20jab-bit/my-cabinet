@@ -650,9 +650,22 @@
 
     <script>
         // ===== DATA (from localStorage or defaults) =====
+        const DATA_VERSION = '3'; // Increment to force refresh
         function loadData() {
             const saved = localStorage.getItem('raccoon_data');
-            if (saved) return JSON.parse(saved);
+            const savedVersion = localStorage.getItem('raccoon_version');
+            
+            if (saved && savedVersion === DATA_VERSION) {
+                try {
+                    return JSON.parse(saved);
+                } catch(e) {
+                    console.error('Failed to parse saved data:', e);
+                }
+            }
+            
+            // Clear old data and use fresh
+            localStorage.removeItem('raccoon_data');
+            localStorage.setItem('raccoon_version', DATA_VERSION);
 
             return {
                 articles: [

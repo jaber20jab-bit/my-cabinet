@@ -214,6 +214,26 @@ async def search(request: Request, q: str = "", lang: str = "ar"):
         "lang": lang
     })
 
+# ==================== API for adding articles ====================
+@app.post("/api/articles")
+async def api_create_article(
+    title: str = Form(...),
+    content: str = Form(...),
+    category: str = Form("عام"),
+    tags: str = Form(""),
+    language: str = Form("ar")
+):
+    conn = get_db()
+    cursor = conn.execute(
+        "INSERT INTO articles (title, content, category, tags, language) VALUES (?, ?, ?, ?, ?)",
+        (title, content, category, tags, language)
+    )
+    article_id = cursor.lastrowid
+    conn.commit()
+    conn.close()
+    return {"ok": True, "id": article_id, "message": "Article created"}
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

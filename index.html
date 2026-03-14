@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خزانتي الرقمية</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans Arabic', sans-serif; }
+        body { background: #000; color: #e4e4e7; max-width: 800px; margin: 0 auto; padding: 1rem; }
+        a { color: #38bdf8; }
+        .header { text-align: center; padding: 2rem 0; border-bottom: 1px solid #222; margin-bottom: 2rem; }
+        .header h1 { font-size: 2rem; }
+        .article { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+        .article h2 { margin-top: 0; color: #e4e4e7; }
+        .article .meta { color: #71717a; font-size: 0.9rem; }
+        .tag { display: inline-block; background: rgba(56,189,248,0.1); color: #38bdf8; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin: 0.2rem; }
+        .article .content { white-space: pre-wrap; line-height: 1.8; }
+        .category { background: rgba(168,85,247,0.15); color: #a855f7; padding: 0.3rem 0.8rem; border-radius: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 خزانتي الرقمية</h1>
+        <p>مقالات علمية وطبية مختارة بعناية</p>
+    </div>
+
+    <main id="articles"></main>
+
+    <script>
+        // Articles stored as JSON
+        const articles = [
+            {
+                id: 1,
+                title: "NAD+: جزيء الشباب — كيف تضاعف مستواه وتعيد ساعتك البيولوجية",
+                category: "علوم",
+                tags: ["NAD+", "شيخوخة", "صحة خلوية", "ميتوكوندريا"],
+                date: "2026-03-14",
+                content: `🔬 NAD+: جزيء الشباب — كيف تضاعف مستواه وتعيد ساعتك البيولوجية
+
+🏷️ عنوان الدراسة: Oral supplementation with NR and NMN increases NAD+ biomarkers in humans
+📅 تاريخ النشر: يناير 2026 — Nature Metabolism
+🏥 المصدر: Nestlé Research
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 ما هو NAD+؟
+
+NAD+ هو جزيء موجود في كل خلية في جسمك. بدونه، تموت. هو «وقود» الخلايا.
+
+وظائفه الحيوية:
+⚡ إنتاج الطاقة في الميتوكوندريا
+🔧 إصلاح الحمض النووي (DNA)
+🧬 تنظيم أكثر من 500 تفاعل إنزيمي
+🛡️ حماية الخلايا من الشيخوخة
+
+المشكلة: مستوى NAD+ ينخفض مع التقدم في العمر:
+• عمر 30 سنة: 100%
+• عمر 50 سنة: ~50%
+• عمر 60+ سنوات: ~25%
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 النتائج المهمة:
+
+✅ 14 يوماً من تناول 1 غرام يومياً = تضاعف مستويات NAD+!
+✅ 12 أسبوعاً من NMN: تحسن جودة النوم + سرعة المشي
+✅ NMNH الجديد: مضاعفة مستوى NAD+ ثلاث مرات
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ البروتوكول العملي:
+
+• NMN: 500-1000 ملغ يومياً
+• NR: 250-500 ملغ يومياً
+• مصادر طبيعية: حليب البقر، التوفو، السالمون
+• رياضة + نوم 7-8 ساعات + صيام متقطع
+
+🔗 المصدر: Nature Metabolism (2026)`
+            }
+        ];
+
+        // Render articles
+        function renderArticles() {
+            const container = document.getElementById('articles');
+            container.innerHTML = articles.map(a => `
+                <div class="article">
+                    <h2>${a.title}</h2>
+                    <div class="meta">
+                        <span class="category">${a.category}</span>
+                        <span>📅 ${a.date}</span>
+                    </div>
+                    <div style="margin: 0.5rem 0;">
+                        ${a.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
+                    </div>
+                    <div class="content">${a.content}</div>
+                </div>
+            `).join('');
+        }
+
+        renderArticles();
+    </script>
+</body>
+</html>

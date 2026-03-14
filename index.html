@@ -437,7 +437,21 @@
         <p>دراسات مترجمة ومختصرة — من أفضل الجامعات والمجلات العلمية في العالم</p>
     </section>
 
-    <!-- Stats -->
+    <!-- Articles -->
+    <div class="container article-list" id="articleList">
+        <div class="section-header">
+            <h2 class="section-title">📚 أحدث المقالات</h2>
+        </div>
+        <div class="articles-grid" id="articles"></div>
+    </div>
+
+    <!-- Article View -->
+    <div class="article-view" id="articleView">
+        <a href="#" onclick="showList()" class="back-btn">← العودة للمقالات</a>
+        <div id="articleContent"></div>
+    </div>
+
+    <!-- Stats (moved to bottom) -->
     <div class="stats">
         <div class="stat-card">
             <div class="stat-num c1" id="count">3</div>
@@ -451,20 +465,6 @@
             <div class="stat-num c3">2026</div>
             <div class="stat-label">الأحدث</div>
         </div>
-    </div>
-
-    <!-- Articles -->
-    <div class="container article-list" id="articleList">
-        <div class="section-header">
-            <h2 class="section-title">📚 أحدث المقالات</h2>
-        </div>
-        <div class="articles-grid" id="articles"></div>
-    </div>
-
-    <!-- Article View -->
-    <div class="article-view" id="articleView">
-        <a href="#" onclick="showList()" class="back-btn">← العودة للمقالات</a>
-        <div id="articleContent"></div>
     </div>
 
     <!-- Footer -->

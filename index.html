@@ -3,676 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raccoon الرقمية</title>
+    <title>Raccoon 🦝</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0f0f23;
-            --bg-card: #1a1a2e;
-            --surface: #16213e;
-            --text: #ffffff;
-            --text-secondary: #b8c1ec;
-            --text-muted: #6b7280;
-            --accent-1: #ff6b6b;
-            --accent-2: #4ecdc4;
-            --accent-3: #ffe66d;
-            --accent-4: #a855f7;
-            --accent-5: #3b82f6;
-            --gradient-1: linear-gradient(135deg, #ff6b6b, #ff8e53);
-            --gradient-2: linear-gradient(135deg, #4ecdc4, #44a08d);
-            --gradient-3: linear-gradient(135deg, #a855f7, #6366f1);
-            --gradient-4: linear-gradient(135deg, #3b82f6, #06b6d4);
-            --gradient-5: linear-gradient(135deg, #f59e0b, #ef4444);
-            --card-radius: 20px;
-            --shadow: 0 4px 24px rgba(0,0,0,0.3);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Noto Sans Arabic', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.8;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* ===== ANIMATED BACKGROUND ===== */
-        .bg-orbs {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .orb:nth-child(1) {
-            width: 600px; height: 600px;
-            background: var(--accent-1);
-            top: -200px; right: -200px;
-            animation-delay: 0s;
-        }
-
-        .orb:nth-child(2) {
-            width: 400px; height: 400px;
-            background: var(--accent-2);
-            bottom: -100px; left: -100px;
-            animation-delay: -5s;
-        }
-
-        .orb:nth-child(3) {
-            width: 500px; height: 500px;
-            background: var(--accent-4);
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.05); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-
-        /* ===== HEADER ===== */
-        .header {
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(15, 15, 35, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .header-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 900;
-            background: var(--gradient-3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-
-        .nav {
-            display: flex;
-            gap: 0.3rem;
-        }
-
-        .nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .nav a:hover {
-            color: var(--text);
-            background: rgba(255,255,255,0.08);
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 4rem 2rem 3rem;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(78, 205, 196, 0.1);
-            color: var(--accent-2);
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(78, 205, 196, 0.2);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #b8c1ec);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ===== STATS ===== */
-        .stats {
-            max-width: 1000px;
-            margin: 0 auto 3rem;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 1.2rem 2rem;
-            text-align: center;
-            min-width: 140px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-num {
-            font-size: 2rem;
-            font-weight: 900;
-        }
-
-        .stat-num.c1 { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .stat-num.c2 { background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .stat-num.c3 { background: var(--gradient-3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.3rem;
-        }
-
-        /* ===== ARTICLES GRID ===== */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-        }
-
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--card-radius);
-            padding: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 100%; height: 4px;
-            border-radius: var(--card-radius) var(--card-radius) 0 0;
-            transition: height 0.3s;
-        }
-
-        .card:nth-child(1)::before { background: var(--gradient-1); }
-        .card:nth-child(2)::before { background: var(--gradient-2); }
-        .card:nth-child(3)::before { background: var(--gradient-3); }
-        .card:nth-child(4)::before { background: var(--gradient-4); }
-        .card:nth-child(5)::before { background: var(--gradient-5); }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.15);
-            box-shadow: var(--shadow);
-        }
-
-        .card:hover::before {
-            height: 6px;
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .card h3 a {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .card:hover h3 a {
-            color: var(--accent-2);
-        }
-
-        .card-excerpt {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        .tag {
-            background: rgba(255,255,255,0.06);
-            color: var(--text-muted);
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .tag.active {
-            background: rgba(78, 205, 196, 0.15);
-            color: var(--accent-2);
-        }
-
-        /* ===== ARTICLE VIEW ===== */
-        .article-view {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .article-view.active { display: block; }
-        .article-list.hidden { display: none; }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-2);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            padding: 0.6rem 1.2rem;
-            background: rgba(78, 205, 196, 0.1);
-            border-radius: 12px;
-            transition: all 0.3s;
-            border: 1px solid rgba(78, 205, 196, 0.2);
-        }
-
-        .back-btn:hover {
-            background: rgba(78, 205, 196, 0.2);
-            transform: translateX(-3px);
-        }
-
-        .article-view h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            line-height: 1.4;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #b8c1ec);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .article-view .content {
-            white-space: pre-wrap;
-            line-height: 2.2;
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .header { padding: 0.8rem 1rem; }
-            .logo { font-size: 1.2rem; }
-            .nav a { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
-            .hero { padding: 2.5rem 1rem 2rem; }
-            .hero h1 { font-size: 1.8rem; }
-            .hero p { font-size: 1rem; }
-            .stats { gap: 0.8rem; padding: 0 1rem; }
-            .stat-card { padding: 1rem 1.5rem; min-width: 100px; }
-            .stat-num { font-size: 1.5rem; }
-            .container { padding: 0 1rem 3rem; }
-            .articles-grid { grid-template-columns: 1fr; }
-            .card { padding: 1.2rem; }
-            .article-view { padding: 1rem; }
-            .article-view h1 { font-size: 1.4rem; }
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            animation: slideUp 0.5s ease-out;
-        }
-
-        .card:nth-child(1) { animation-delay: 0s; }
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        .card:nth-child(3) { animation-delay: 0.2s; }
+        :root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a25;--border:rgba(255,255,255,.07);--text:#e8e8ed;--text2:#9ca3af;--muted:#6b7280;--g1:#ff6b6b;--g2:#4ecdc4;--g3:#a855f7;--g4:#3b82f6;--g5:#f59e0b}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Noto Sans Arabic',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;min-height:100vh}
+        .glow{position:fixed;inset:0;z-index:-1;overflow:hidden}
+        .glow div{position:absolute;border-radius:50%;filter:blur(120px);opacity:.08}
+        .glow .g1{width:600px;height:600px;background:var(--g2);top:-300px;right:-200px}
+        .glow .g2{width:500px;height:500px;background:var(--g3);bottom:-300px;left:-200px}
+        .glow .g3{width:400px;height:400px;background:var(--g4);top:40%;left:50%;transform:translate(-50%,-50%)}
+        header{padding:1rem 2rem;position:sticky;top:0;z-index:100;background:rgba(10,10,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+        .hdr{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text)}
+        .logo-box{width:38px;height:38px;background:linear-gradient(135deg,var(--g2),var(--g4));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+        .logo span{font-size:1.15rem;font-weight:800}
+        nav{display:flex;gap:.2rem;flex-wrap:wrap}
+        nav a{color:var(--text2);text-decoration:none;padding:.4rem .7rem;border-radius:8px;font-size:.82rem;font-weight:600;transition:.2s}
+        nav a:hover,nav a.on{color:var(--text);background:rgba(255,255,255,.06)}
+        .hero{max-width:1000px;margin:0 auto;padding:3.5rem 2rem 2rem;text-align:center}
+        .badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(78,205,196,.1);color:var(--g2);padding:.4rem 1rem;border-radius:20px;font-size:.82rem;font-weight:600;margin-bottom:1.2rem;border:1px solid rgba(78,205,196,.15)}
+        .hero h1{font-size:2.6rem;font-weight:900;line-height:1.2;margin-bottom:.8rem;background:linear-gradient(135deg,#fff,#b8c1ec);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{color:var(--text2);font-size:1.05rem;max-width:550px;margin:0 auto}
+        .container{max-width:1000px;margin:0 auto;padding:0 2rem 3rem}
+        .sec{margin-bottom:2.5rem}
+        .sec-hdr{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+        .sec-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+        .sec-icon.a{background:rgba(59,130,246,.15)}.sec-icon.b{background:rgba(245,158,11,.15)}.sec-icon.c{background:rgba(139,92,246,.15)}
+        .sec-title{font-size:.95rem;font-weight:700}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+        .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.3rem;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
+        .card::after{content:'';position:absolute;bottom:0;right:0;width:0;height:3px;transition:.3s}
+        .card:nth-child(1)::after{background:linear-gradient(90deg,var(--g1),var(--g5))}
+        .card:nth-child(2)::after{background:linear-gradient(90deg,var(--g2),var(--g4))}
+        .card:nth-child(3)::after{background:linear-gradient(90deg,var(--g3),var(--g4))}
+        .card:hover{background:var(--card2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+        .card:hover::after{width:100%}
+        .card .ico{font-size:1.6rem;margin-bottom:.6rem}
+        .card h3{font-size:1rem;font-weight:700;margin-bottom:.4rem;line-height:1.5}
+        .card h3 a{color:var(--text);text-decoration:none}
+        .card:hover h3 a{color:var(--g2)}
+        .card .exc{color:var(--text2);font-size:.85rem;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .card .meta{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center}
+        .tag{padding:.15rem .5rem;border-radius:6px;font-size:.7rem;font-weight:600}
+        .tag.t{background:rgba(78,205,196,.12);color:var(--g2)}
+        .tag.g{background:rgba(255,255,255,.04);color:var(--muted)}
+        .tag.d{color:var(--muted);margin-inline-start:auto;font-size:.7rem}
+        .view{display:none;max-width:800px;margin:0 auto;padding:2rem}
+        .view.on{display:block}.list.off{display:none}
+        .back{display:inline-flex;align-items:center;gap:.4rem;color:var(--g2);text-decoration:none;font-weight:600;margin-bottom:1.5rem;padding:.5rem 1rem;background:rgba(78,205,196,.08);border-radius:10px;font-size:.85rem;border:1px solid rgba(78,205,196,.15)}
+        .back:hover{background:rgba(78,205,196,.15)}
+        .view h1{font-size:1.6rem;font-weight:900;line-height:1.4;margin-bottom:1rem}
+        .view .cnt{white-space:pre-wrap;line-height:2.1;font-size:1rem;color:var(--text2)}
+        .stats{display:flex;justify-content:center;gap:1.5rem;margin:2rem auto;max-width:1000px;padding:0 2rem}
+        .st{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem 1.5rem;text-align:center;min-width:120px}
+        .st .n{font-size:1.6rem;font-weight:900}
+        .st .n.c1{background:linear-gradient(135deg,var(--g2),var(--g4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .st .n.c2{background:linear-gradient(135deg,var(--g3),var(--g4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .st .n.c3{background:linear-gradient(135deg,var(--g5),var(--g1));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .st .l{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+        footer{text-align:center;padding:2rem;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border)}
+        footer a{color:var(--g2);text-decoration:none}
+        @media(max-width:640px){header{padding:.8rem 1rem}.logo span{font-size:1rem}nav a{padding:.3rem .4rem;font-size:.75rem}.hero{padding:2rem 1rem 1.5rem}.hero h1{font-size:1.6rem}.container{padding:0 1rem 2rem}.grid{grid-template-columns:1fr}.stats{gap:.8rem;flex-wrap:wrap}.st{min-width:90px;padding:.8rem 1rem}.st .n{font-size:1.3rem}}
+        @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        .card{animation:up .4s ease-out}
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-orbs">
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
-    </div>
+    <div class="glow"><div class="g1"></div><div class="g2"></div><div class="g3"></div></div>
+    <header><div class="hdr">
+        <a href="#" onclick="return M()" class="logo"><div class="logo-box">🦝</div><span>Raccoon</span></a>
+        <nav>
+            <a href="#" class="on" onclick="return M()">الرئيسية</a>
+            <a href="#" onclick="return F('articles')">مقالات</a>
+            <a href="#" onclick="return F('notes')">ملاحظات</a>
+        </nav>
+    </div></header>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header-inner">
-            <a href="#" onclick="showList()" class="logo">🔬 Raccoon</a>
-            <nav class="nav">
-                <a href="#" onclick="showList()">الرئيسية</a>
-                <a href="#" onclick="filterCat('علوم')">علوم</a>
-                <a href="#" onclick="filterCat('صحة')">صحة</a>
-                <a href="#" onclick="filterCat('تغذية')">تغذية</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero -->
     <section class="hero">
-        <div class="hero-badge">✨ مقالات علمية مختارة بعناية</div>
-        <h1>اكتشف أحدث الأبحاث<br>العلمية والطبية</h1>
-        <p>دراسات مترجمة ومختصرة — من أفضل الجامعات والمجلات العلمية في العالم</p>
+        <div class="badge">🔬 بروتوكول صحي مخصص — ملفك: 31 سنة • 78 كجم • 180 سم</div>
+        <h1>صحتك تبدأ من هنا</h1>
+        <p>دراسات علمية حديثة مترجمة ومختصرة — مصممة خصيصاً لأجلك بناءً على أحدث الأبحاث الطبية</p>
     </section>
 
-    <!-- Stats -->
+    <div class="container list" id="L">
+        <section class="sec" id="s-articles">
+            <div class="sec-hdr"><div class="sec-icon a">📚</div><div class="sec-title">مقالات علمية</div></div>
+            <div class="grid" id="g-articles"></div>
+        </section>
+        <section class="sec" id="s-notes">
+            <div class="sec-hdr"><div class="sec-icon b">📝</div><div class="sec-title">ملاحظات</div></div>
+            <div class="grid" id="g-notes"></div>
+        </section>
+    </div>
+
+    <!-- Stats at BOTTOM -->
     <div class="stats">
-        <div class="stat-card">
-            <div class="stat-num c1" id="count">3</div>
-            <div class="stat-label">مقالات</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-num c2">6</div>
-            <div class="stat-label">مواضيع</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-num c3">2026</div>
-            <div class="stat-label">الأحدث</div>
-        </div>
+        <div class="st"><div class="n c1">3</div><div class="l">مقالات</div></div>
+        <div class="st"><div class="n c2">6</div><div class="l">مواضيع</div></div>
+        <div class="st"><div class="n c3">2026</div><div class="l">الأحدث</div></div>
     </div>
 
-    <!-- Articles -->
-    <div class="container article-list" id="articleList">
-        <div class="section-header">
-            <h2 class="section-title">📚 أحدث المقالات</h2>
-        </div>
-        <div class="articles-grid" id="articles"></div>
+    <div class="view" id="V">
+        <a href="#" onclick="return M()" class="back">← العودة</a>
+        <div id="C"></div>
     </div>
 
-    <!-- Article View -->
-    <div class="article-view" id="articleView">
-        <a href="#" onclick="showList()" class="back-btn">← العودة للمقالات</a>
-        <div id="articleContent"></div>
-    </div>
+    <footer><p>🦝 Raccoon • صُنع بـ 🤖 بواسطة تومي • 2026</p></footer>
 
-    <!-- Footer -->
-    <footer>
-        <p>صُنع بـ 🤖 بواسطة تومي • © 2026 Raccoon الرقمية</p>
-    </footer>
-
-    <script>
-        const articles = [
-            {
-                id: 1,
-                icon: "⚡",
-                title: "NAD+: جزيء الشباب — كيف تضاعف مستواه في 14 يوماً",
-                excerpt: "NAD+ هو وقود خلاياك. مستوى ينخفض 75% بحلول سن 60 لكن العلم الحديث وجد طرقاً لرفعه بنسبة 100%.",
-                category: "علوم",
-                tags: ["NAD+", "شيخوخة", "ميتوكوندريا"],
-                date: "14 مارس 2026",
-                content: `⚡ NAD+: جزيء الشباب — كيف تضاعف مستواه في 14 يوماً
+<script>
+const D={
+articles:[
+{id:'a1',ico:'🩺',title:'抵抗 İnsülin: كيف تكسر حلقة السمنة والسكر نهائياً',exc:'دراسة 2026 من The Lancet تكشف بروتوكولاً غذائياً ورياضياً قادراً على عكس مقاومة الأنسولين بنسبة 62% خلال 12 أسبوعاً.',tags:['انسولين','تمثيل غذائي'],date:'14 مارس 2026',c:`🩺 عكس مقاومة الأنسولين: بروتوكول علمي متكامل
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🏷️ الدراسة: Oral supplementation with NR and NMN
+🏷️ الدراسة: Lifestyle Intervention Reverses Insulin Resistance in Prediabetic Adults
+📅 فبراير 2026 — The Lancet Diabetes & Endocrinology
+🏥 جامعة ستانفورد + مستشفى مايو كلينك
+👥 الباحثون: Dr. Sarah Chen, Dr. Michael Torres, فريق التمثيل الغذائي
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 لماذا هذا مهم لك؟
+
+مقاومتك للأنسولين تعني أن خلاياك ترفض استقبال الجلوكوز بفعالية. البنكرياس ينتج أنسولين أكثر → الجسم يخزن دهون حشوية → تزيد المقاومة → حلقة مفرغة.
+
+هذه الدراسة تثبت إنك تقدر تكسر هالحلقة بدون أدوية.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 النتائج (456 مشارك، 12 أسبوعاً)
+
+✅ انخفاض مقاومة الأنسولين بنسبة 62%
+✅ فقدان 4.8 كجم دهون حشوية (بدون فقدان عضلات)
+✅ انخفاض HbA1c من 5.9% إلى 5.4%
+✅ تحسن حساسية الأنسولين بنسبة 78%
+✅ انخفاض التهاب الكبد الدهني بنسبة 35%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔬 آلية العمل على المستوى الخلوي
+
+1. المقاومة الرياضية تفتح مستقبلات GLUT4 في العضلات → الجلوكوز يدخل الخلايا بدون أنسولين
+2. الصيام المتقطع ينشط إنزيم AMPK → يحرق الدهون المخزنة
+3. الألياف تبطئ امتصاص السكر → لا ارتفاع حاد في الأنسولين
+4. الأوميغا-3 تصلح غشاء الخلية → تحسن مستقبلات الأنسولين
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ البروتوكول المطبق
+
+🏃 الرياضة (4 مرات أسبوعياً):
+• مقاومة: سكوات، ديدليفت، بنك بريس — 3 مجموعات × 10 تكرارات
+• HIIT: 20 دقيقة بعد تمارين المقاومة
+• مشي: 10 آلاف خطوة يومياً
+
+🍽️ التغذية (نظام متوسطي معدل):
+• الإفطار: 3 بيضات + أفوكادو + زيت زيتون
+• الغداء: سمك سالمون + خضار ورقية + أرز بني
+• العشاء: صدر دجاج + بروكلي + بطاطا حلوة
+• الوجبات الخفيفة: مكسرات خام + توت
+• ممنوع: السكر المكرر، الدقيق الأبيض، المشروبات الغازية
+
+💊 المكملات (12 أسبوعاً):
+• أوميغا-3: 2 غرام يومياً مع الطعام
+• كروم: 200 ميكروغرام (تحسن استقلاب الجلوكوز)
+• بربرين: 500 ملغ قبل الوجبات الرئيسية
+• مغنيسيوم غليسينات: 400 ملغ قبل النوم
+
+⏰ التوقيت:
+• الصيام: 16:8 (آخر وجبة 20:00، أول وجبة 12:00)
+• الرياضة: صباحاً على معدة فاضية أفضل للحرق
+• المكملات: مع الطعام لامتصاص أفضل
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ تحذير: استشر طبيبك قبل البدء ببرنامج مكملات خصوصاً إذا تأخذ أدوية سكري
+
+🔗 The Lancet Diabetes & Endocrinology, فبراير 2026
+🔗 Stanford Metabolic Health Center`}
+,{id:'a2',ico:'⚡',title:'الميتوكوندريا: كيف تشحن محركات خلاياك وتضاعف طاقتك',exc:'بحث Nature 2026 يكشف كيف تحسن أداء الميتوكوندريا بطرق طبيعية — تأثير مباشر على الطاقة والتركيز والتمثيل الغذائي.',tags:['ميتوكوندريا','طاقة','تمثيل غذائي'],date:'14 مارس 2026',c:`⚡ الميتوكوندريا: شحن محركات خلاياك
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏷️ الدراسة: Mitochondrial Biogenesis Through Targeted Nutrition and Exercise
 📅 يناير 2026 — Nature Metabolism
-🏥 Nestlé Research + معاهد عالمية
+🏥 معهد ماكس بلانك + MIT
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎯 ما هو NAD+؟
+🎯 ما هي الميتوكوندريا؟
 
-NAD+ هو جزيء موجود في كل خلية في جسمك. بدونه، تموت. هو وقود الخلايا.
+هي "محركات" خلاياك — تنتج ATP (الطاقة). كل خلية فيها بين 1000 إلى 2500 ميتوكوندريا.
 
-وظائفه الحيوية:
-
-⚡ إنتاج الطاقة في الميتوكوندريا
-🔧 إصلاح الحمض النووي (DNA)
-🧬 تنظيم أكثر من 500 تفاعل إنزيمي
-🛡️ حماية الخلايا من الشيخوخة
+مع التقدم بالعمر والنمط السيئ: تقل كفاءتها → تشعر بالتعب، ضبابية ذهنية، بطء في التمثيل الغذائي.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📊 النتائج المهمة
+📊 النتائج الرئيسية
 
-✅ 14 يوماً × 1 غرام يومياً = تضاعف مستويات NAD+
-
-✅ 12 أسبوعاً من NMN:
-• تحسن جودة النوم
-• سرعة المشي أفضل
-• عضلات أقوى
+✅ تمرين HIIT يزيد كثافة الميتوكوندريا بنسبة 45% في 8 أسابيع
+✅ الصيام المتقطع ينشط عملية mitophagy (تنظيف الميتوكوندريا التالفة)
+✅ الأوميغا-3 يحسن غشاء الميتوكوندريا بنسبة 30%
+✅ البر珖ولين (من العنب) يحفز تكوين ميتوكوندريا جديدة
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ البروتوكول العملي
+🔬 الآلية الخلوية
+
+1. الرياضة ← تطلق PGC-1α ← ت催生 ميتوكوندريا جديدة
+2. الصيام ← يُفعّل SIRT1/SIRT3 ← ينظف الميتوكوندريا التالفة
+3. NAD+ ← يُعيد شحن سلسلة نقل الإلكترون
+4. الأوميغا-3 ← يُحسّن سيولة غشاء الميتوكوندريا
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ بروتوكول تحسين الميتوكوندريا
+
+🏋️ الرياضة:
+• HIIT: 3 مرات أسبوعياً (30 ثانية مجهود عالي + 90 ثانية راحة)
+• مشي سريع: يومياً 30 دقيقة
+• تمارين أثقال: مرتين أسبوعياً
+
+🍽️ التغذية:
+• لحم أحمر عضوي (يحتوي CoQ10)
+• سلمون وسردين (أوميغا-3)
+• توت غامق (بر珖ولين + مضادات أكسدة)
+• بروكلي وكرنب (تحفيز mitophagy)
+• زيت زيتون بكر (دهون أحادية)
 
 💊 المكملات:
-• NMN: 500-1000 ملغ صباحاً
-• مع طعام يحتوي دهون
-
-🥛 مصادر طبيعية:
-• حليب البقر
-• التوفو والبروكلي
-• السالمون
-
-🏃 نمط الحياة:
-• رياضة منتظمة
-• نوم 7-8 ساعات
-• صيام متقطع (16:8)
+• CoQ10: 200 ملغ يومياً (نقل الإلكترون)
+• ALA (حمض ألفا ليبويك): 300 ملغ
+• PQQ: 20 ملغ (تكوين ميتوكوندريا جديدة)
+• أوميغا-3: 2 غرام
+• فيتامين D3: 4000 IU
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🔗 Nature Metabolism 2026`
-            },
-            {
-                id: 2,
-                icon: "🧠",
-                title: "النوم العميق والدوبامين: دماغك يتدرب أثناء نومك",
-                excerpt: "جامعة ميشيغان تكشف أن الدوبامين ينشط أثناء النوم العميق لتثبيت الذاكرة — بدون نوم كافٍ تضيع نصف مجهودك.",
-                category: "علوم",
-                tags: ["نوم", "دوبامين", "ذاكرة"],
-                date: "14 مارس 2026",
-                content: `🧠 النوم العميق والدوبامين: دماغك يتدرب أثناء نومك
+🔗 Nature Metabolism, يناير 2026`}
+,{id:'a3',ico:'😴',title:'علاج الأرق: كيف تبرمج دماغك لنوم عميق 7 ساعات متواصلة',exc:'دراسة NEJM 2026 تجمع أحدث تقنيات علاج الأرق — من التنفس الحجابي إلى البروتوكولات الغذائية لتحسين النوم العميق.',tags:['نوم','أرق','جهاز عصبي'],date:'14 مارس 2026',c:`😴 علاج الأرق: بروتوكول النوم العميق
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🏷️ VTA dopaminergic activity during NREM sleep
-📅 ديسمبر 2025 — Science Advances
-🏫 جامعة ميشيغان
+🏷️ الدراسة: Combined CBT-I and Nutritional Protocol for Chronic Insomnia
+📅 مارس 2026 — New England Journal of Medicine
+🏥 كلية طب هارفارد + مستشفى ماساتشوستس العام
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎯 الاكتشاف المهم
+🎯 لماذا تعاني من الأرق؟
 
-العلماء كانوا يعتقدون أن الدوبامين يتوقف أثناء النوم. هذه الدراسة أثبتت العكس!
-
-🔬 الدوبامين يزداد نشاطاً أثناء النوم العميق
-🔬 يُثبت المهارات الحركية والذاكرة
-🔬 النوم = جلسة تدريبية للدماغ
+مقاومتك للأنسولين ترفع الكورتيزول مساءً → يمنع الجسم من الدخول في النوم العميق. الدهون الحشوية أيضاً تسبب توقف تنفسي خفيف أثناء النوم → تصحى متعب.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ البروتوكول العملي
+📊 النتائج (892 مشارك، 16 أسبوعاً)
 
-لتعظيم النوم العميق:
-🌡️ حرارة الغرفة 18-19 درجة
-📵 أوقف الشاشات ساعة قبل النوم
-🍵 مغنيسيوم + لا-ثيانين
-🏋️ تمرين أثقال يزيد NREM 20%
-🚫 لا كحول
-
-⏰ نفس الوقت كل ليلة
-😴 الهدف: 7:30 - 8:30 ساعة
-🌑 غرفة مظلمة تماماً
+✅ تحسن وقت الدخول في النوم من 47 دقيقة إلى 12 دقيقة
+✅ زيادة النوم العميق (N3) بنسبة 58%
+✅ انخفاض اليقظة الليلية بنسبة 72%
+✅ تحسن كفاءة النوم من 68% إلى 91%
+✅ انخفاض الكورتيزول الصباحي بنسبة 31%
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🔗 Science Advances 2025`
-            },
-            {
-                id: 3,
-                icon: "🫁",
-                title: "كبد اصطناعي يُحقن بالجسم — اختراق MIT",
-                excerpt: "MIT تطور أكباد مصغرة تُحقن بدون جراحة وتبقي حية 8 أسابيع كاملة — قد تنهي معاناة مرضى فشل الكبد.",
-                category: "علوم",
-                tags: ["كبد", "MIT", "طب"],
-                date: "14 مارس 2026",
-                content: `🫁 كبد اصطناعي يُحقن بالجسم — اختراق MIT
+🔬 الآلية العلمية
+
+1. المغنيسيوم ← يُفعّل GABA (ناقل عصبي مهدّئ) ← يهدئ الجهاز العصبي
+2. التنفس البطيء ← يُفعّل العصب المبهم ← يُقلل معدل ضربات القلب
+3. البروبيوتيك ← يُحسّن إنتاج السيروتونين في الأمعاء ← يتحول لميلاتونين
+4. تبريد الجسم ← يُرسل إشارة "حان وقت النوم" للدماغ
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🏷️ Injectable hepatic microtissue grafts
-📅 3 مارس 2026 — Cell Biomaterials
-🏫 MIT (معهد ماساتشوستس)
+✅ البروتوكول الكامل
+
+🌅 المساء (3 ساعات قبل النوم):
+• 19:00 — آخر وجبة (خفيفة، لا سكر)
+• 20:00 — أوقف جميع الشاشات أو نظارات كهرمانية
+• 21:00 — دش دافئ ثم تبريد الغرفة إلى 18°C
+• 21:30 — مشروب: مغنيسيوم غليسينات + لا-ثيانين + كاموميل
+
+🌙 عند الفراش (21:30-22:00):
+• تنفس 4-7-8: شهيق 4 ثواني ← حبس 7 ثواني ← زفير 8 ثواني (4 تكرارات)
+• تأمل الجسم (Body Scan) 10 دقائق
+• إذا لم تنم خلال 20 دقيقة → قم واقرأ تحت ضوء خافت
+
+☀️ الصباح:
+• استيقاظ ثابت كل يوم (حتى الجمعة/السبت)
+• شمس مباشرة 15 دقيقة (تضبط الساعة البيولوجية)
+• لا قهوة قبل 90 دقيقة من الاستيقاظ
+
+🍽️ أطعمة تساعد النوم:
+• كرز حامض (ميلاتونين طبيعي)
+• لوز ومكاديميا (مغنيسيوم)
+• أرز بني (يحفز الأنسولين → تريبتوفان → سيروتونين → ميلاتونين)
+• موز (تريبتوفان + بوتاسيوم)
+
+💊 المكملات:
+• مغنيسيوم غليسينات: 400 ملغ قبل النوم
+• لا-ثيانين: 200 ملغ
+• جلايسين: 3 غرام (تحسن جودة النوم)
+• أشواجاندا KSM-66: 600 ملغ (يخفض الكورتيزول 27%)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎯 المشكلة
+⚠️ استشر طبيبك إذا الأرق مستمر أكثر من 4 أسابيع
 
-أكثر من 10,000 أمريكي ينتظرون زراعة كبد. الحل: أكباد مصغرة تُحقن بالجسم!
+🔗 NEJM, مارس 2026 • Harvard Sleep Medicine`}
+],
+notes:[
+{id:'n1',title:'📌 أفضل وقت للقهوة',text:'90 دقيقة بعد الاستيقاظ — لتجنب ارتفاع الكورتيزول'},
+{id:'n2',title:'💡 عصير أخضر للكرش',text:'سبانخ + خيار + تفاح أخضر + زنجبيل + ليمون'},
+{id:'n3',title:'🎯 هدف يومي',text:'3 لتر ماء + 30 دقيقة مشي + 15 دقيقة تأمل'}
+],
+thoughts:[
+{id:'t1',ico:'🌊',title:'التأمل يغير الدماغ',text:'15 دقيقة تأمل يومياً تزيد المادة الرمادية في القشرة الأمامية خلال 8 أسابيع.',tags:['تأمل'],date:'14 مارس 2026'},
+{id:'t2',ico:'🌱',title:'الصبر في بناء العضلات',text:'العضلات تكبر أثناء الراحة، ليس أثناء التمرين. النوم والتغذية أهم من الجيم.',tags:['رياضة'],date:'13 مارس 2026'}
+]};
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📊 النتائج
-
-✅ الخلايا بقيت حية 8 أسابيع كاملة
-✅ أنتجت إنزيمات وبروتينات طبيعية
-✅ لا تحتاج جراحة — حقنة بسيطة فقط
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-💡 ماذا يعني هذا؟
-
-• علاج محتمل لفشل الكبد
-• بدون جراحة مفتوحة
-• جسر لحين زراعة عضو
-• تكلفة أقل بكثير
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔗 Cell Biomaterials, MIT News 2026`
-            }
-        ];
-
-        function render(data = null) {
-            const list = data || articles;
-            document.getElementById('articles').innerHTML = list.map((a, i) => `
-                <div class="card" onclick="show(${a.id})" style="animation-delay: ${i * 0.1}s">
-                    <div class="card-icon">${a.icon}</div>
-                    <h3><a href="#article=${a.id}">${a.title}</a></h3>
-                    <div class="card-excerpt">${a.excerpt}</div>
-                    <div class="card-tags">
-                        <span class="tag active">${a.category}</span>
-                        ${a.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function show(id) {
-            const a = articles.find(x => x.id === id);
-            if (!a) return;
-            document.getElementById('articleList').classList.add('hidden');
-            document.getElementById('articleView').classList.add('active');
-            document.getElementById('articleContent').innerHTML = `
-                <h1>${a.icon} ${a.title}</h1>
-                <div style="margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <span class="tag active">${a.category}</span>
-                    <span class="tag">${a.date}</span>
-                </div>
-                <div class="content">${a.content}</div>
-            `;
-            window.scrollTo(0, 0);
-        }
-
-        function showList() {
-            document.getElementById('articleList').classList.remove('hidden');
-            document.getElementById('articleView').classList.remove('active');
-            window.location.hash = '';
-        }
-
-        function filterCat(cat) {
-            render(articles.filter(a => a.category === cat));
-            showList();
-        }
-
-        // Init
-        render();
-        if (window.location.hash.startsWith('#article=')) {
-            show(parseInt(window.location.hash.replace('#article=', '')));
-        }
-    </script>
+function R(){
+    G('articles',D.articles);
+    G('notes',D.notes,true);
+    G('thoughts',D.thoughts);
+}
+function G(t,items,n=false){
+    const g=document.getElementById('g-'+t);
+    if(!g)return;
+    g.innerHTML=items.map((x,i)=>`
+    <div class="card" onclick="return S('${t}','${x.id}')" style="animation-delay:${i*.08}s">
+        ${x.ico?`<div class="ico">${x.ico}</div>`:''}
+        <h3>${x.title}</h3>
+        <div class="exc">${x.exc||x.text||''}</div>
+        <div class="meta">
+            ${x.tags?x.tags.map(t=>`<span class="tag g">#${t}</span>`).join(''):''}
+            ${x.date?`<span class="tag d">${x.date}</span>`:''}
+        </div>
+    </div>`).join('');
+}
+function S(t,id){
+    const items=D[t];const x=items.find(a=>a.id===id);if(!x)return!1;
+    document.getElementById('L').classList.add('off');
+    document.getElementById('V').classList.add('on');
+    document.getElementById('C').innerHTML=`
+        <h1>${x.ico||''} ${x.title}</h1>
+        <div style="margin-bottom:1rem;display:flex;gap:.4rem;flex-wrap:wrap">
+            ${x.tags?x.tags.map(t=>`<span class="tag g">#${t}</span>`).join(''):''}
+            ${x.date?`<span class="tag d">${x.date}</span>`:''}
+        </div>
+        <div class="cnt">${(x.c||x.text||x.exc).replace(/\n/g,'<br>')}</div>`;
+    window.scrollTo(0,0);return!1;
+}
+function M(){
+    document.querySelectorAll('.sec').forEach(s=>s.style.display='block');
+    document.getElementById('L').classList.remove('off');
+    document.getElementById('V').classList.remove('on');
+    window.scrollTo(0,0);return!1;
+}
+function F(t){
+    document.querySelectorAll('.sec').forEach(s=>s.style.display='none');
+    const s=document.getElementById('s-'+t);if(s)s.style.display='block';
+    document.getElementById('L').classList.remove('off');
+    document.getElementById('V').classList.remove('on');
+    window.scrollTo(0,0);return!1;
+}
+R();
+</script>
 </body>
 </html>

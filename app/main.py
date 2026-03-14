@@ -233,6 +233,9 @@ async def api_create_article(
     conn.close()
     return {"ok": True, "id": article_id, "message": "Article created"}
 
+# Vercel serverless handler
+handler = app
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))

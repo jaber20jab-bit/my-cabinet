@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'مذكرة جديدة' if lang == 'ar' else 'New Note' }} - {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}{% endblock %}
+
+{% block content %}
+<div class="article-view">
+    <div class="section-header">
+        <h2 class="section-title">{{ '➕ مذكرة جديدة' if lang == 'ar' else '➕ New Note' }}</h2>
+    </div>
+    
+    <form action="/notes/create" method="post" class="card">
+        <div class="form-group">
+            <label>{{ 'العنوان' if lang == 'ar' else 'Title' }}</label>
+            <input type="text" name="title" class="form-control" required placeholder="{{ 'أدخل عنوان المذكرة...' if lang == 'ar' else 'Enter note title...' }}">
+        </div>
+        
+        <div class="form-group">
+            <label>{{ 'المحتوى' if lang == 'ar' else 'Content' }}</label>
+            <textarea name="content" class="form-control" required placeholder="{{ 'اكتب محتوى المذكرة هنا...' if lang == 'ar' else 'Write your note content here...' }}"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                <input type="checkbox" name="pinned" value="1">
+                📌 {{ 'تثبيت في الأعلى' if lang == 'ar' else 'Pin to top' }}
+            </label>
+        </div>
+        
+        <div style="display:flex; gap:1rem; justify-content:flex-end;">
+            <a href="/notes?lang={{ lang }}" class="btn btn-secondary">{{ 'إلغاء' if lang == 'ar' else 'Cancel' }}</a>
+            <button type="submit" class="btn btn-primary">{{ '💾 حفظ' if lang == 'ar' else '💾 Save' }}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

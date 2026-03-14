@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'خزانتي الرقمية' if lang == 'ar' else 'My Digital Cabinet' }}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero">
+    <h1>{{ 'مرحباً بك في خزانتي 👋' if lang == 'ar' else 'Welcome to My Cabinet 👋' }}</h1>
+    <p>{{ 'مكانك الخاص لتنظيم مقالاتك ومذكراتك والوصول إليها من أي مكان. واجهة نظيفة وسريعة.' if lang == 'ar' else 'Your personal space to organize articles and notes. Clean and fast.' }}</p>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+    <div class="stat-item">
+        <div class="stat-num">{{ articles|length }}</div>
+        <div class="stat-label">{{ 'مقال' if lang == 'ar' else 'Articles' }}</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">{{ notes|length }}</div>
+        <div class="stat-label">{{ 'مذكرة' if lang == 'ar' else 'Notes' }}</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">{{ categories|length }}</div>
+        <div class="stat-label">{{ 'تصنيف' if lang == 'ar' else 'Categories' }}</div>
+    </div>
+</div>
+
+<!-- Recent Articles -->
+<section class="posts-section">
+    <h2 class="section-title">📚 {{ 'أحدث المقالات' if lang == 'ar' else 'Recent Articles' }}</h2>
+    
+    {% if articles %}
+    <ul class="post-list">
+        {% for article in articles %}
+        <li class="post-item">
+            <a href="/articles/{{ article.id }}?lang={{ lang }}" class="post-link">
+                <div class="post-title">{{ article.title }}</div>
+                <div class="post-desc">{{ article.content }}</div>
+                <div class="post-meta">
+                    <span class="post-date">{{ article.created_at }}</span>
+                    <span class="tag">{{ article.category }}</span>
+                </div>
+                {% if article.tags %}
+                <div class="tags-list">
+                    {% for tag in article.tags.split(',') %}
+                    {% if tag.strip() %}
+                    <span class="tag">#{{ tag.strip() }}</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty">
+        <div class="empty-icon">📭</div>
+        <h3>{{ 'لا توجد مقالات بعد' if lang == 'ar' else 'No articles yet' }}</h3>
+        <p>{{ 'ابدأ بإضافة مقالك الأول' if lang == 'ar' else 'Add your first article' }}</p>
+        <div style="margin-top:1rem;">
+            <a href="/articles/new?lang={{ lang }}" class="btn btn-primary">{{ '➕ مقال جديد' if lang == 'ar' else '➕ New Article' }}</a>
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Quick Actions -->
+<div style="display:flex; gap:0.75rem; margin-top:2rem; justify-content:center;">
+    <a href="/articles/new?lang={{ lang }}" class="btn btn-primary">{{ '➕ مقال جديد' if lang == 'ar' else '➕ New Article' }}</a>
+    <a href="/notes/new?lang={{ lang }}" class="btn">{{ '📝 مذكرة جديدة' if lang == 'ar' else '📝 New Note' }}</a>
+</div>
+{% endblock %}

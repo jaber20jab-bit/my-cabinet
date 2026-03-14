@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'نتائج البحث' if lang == 'ar' else 'Search Results' }} - {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="section-title">
+        🔍 {{ 'نتائج البحث' if lang == 'ar' else 'Search Results' }}
+        {% if query %}
+            <span style="color:var(--text-secondary); font-weight:400;">{{ 'عن' if lang == 'ar' else 'for' }} "{{ query }}"</span>
+        {% endif %}
+    </h2>
+</div>
+
+{% if query %}
+    <!-- Articles Results -->
+    {% if articles %}
+    <h3 style="margin-bottom:1rem; color:var(--text-secondary);">📚 {{ 'المقالات' if lang == 'ar' else 'Articles' }} ({{ articles|length }})</h3>
+    <div class="articles-grid" style="margin-bottom:2rem;">
+        {% for article in articles %}
+        <a href="/articles/{{ article.id }}?lang={{ lang }}" style="text-decoration:none;">
+            <div class="card">
+                <div class="card-title">{{ article.title }}</div>
+                <div class="card-content">{{ article.content }}</div>
+                <div class="card-meta">
+                    <span class="card-category">{{ article.category }}</span>
+                    <span>{{ article.created_at }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Notes Results -->
+    {% if notes %}
+    <h3 style="margin-bottom:1rem; color:var(--text-secondary);">📝 {{ 'المذكرات' if lang == 'ar' else 'Notes' }} ({{ notes|length }})</h3>
+    <div class="notes-grid">
+        {% for note in notes %}
+        <div class="note-card">
+            <div class="card-title">{{ note.title }}</div>
+            <div class="card-content">{{ note.content }}</div>
+            <div class="card-meta">
+                <span>{{ note.created_at }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if not articles and not notes %}
+    <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>{{ 'لا توجد نتائج' if lang == 'ar' else 'No results found' }}</h3>
+        <p>{{ 'جرب كلمات بحث مختلفة' if lang == 'ar' else 'Try different search terms' }}</p>
+    </div>
+    {% endif %}
+{% else %}
+    <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>{{ 'ابحث في خزانتك' if lang == 'ar' else 'Search your cabinet' }}</h3>
+        <p>{{ 'اكتب كلمة البحث أعلاه' if lang == 'ar' else 'Type a search query above' }}</p>
+    </div>
+{% endif %}
+{% endblock %}

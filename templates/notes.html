@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'المذكرات' if lang == 'ar' else 'Notes' }} - {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="section-title">📝 {{ 'المذكرات' if lang == 'ar' else 'Notes' }}</h2>
+    <a href="/notes/new?lang={{ lang }}" class="btn btn-primary">➕ {{ 'مذكرة جديدة' if lang == 'ar' else 'New Note' }}</a>
+</div>
+
+{% if notes %}
+<div class="notes-grid">
+    {% for note in notes %}
+    <div class="note-card {{ 'pinned' if note.pinned else '' }}">
+        {% if note.pinned %}<span class="note-pin">📌</span>{% endif %}
+        <div class="card-title">{{ note.title }}</div>
+        <div class="card-content">{{ note.content }}</div>
+        <div class="card-meta">
+            <span>{{ note.created_at }}</span>
+            <form action="/notes/{{ note.id }}/delete" method="post" class="delete-form" style="display:inline;">
+                <button type="submit" style="background:none; border:none; color:var(--red); cursor:pointer;">🗑️</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-state-icon">📝</div>
+    <h3>{{ 'لا توجد مذكرات' if lang == 'ar' else 'No notes found' }}</h3>
+    <p>{{ 'ابدأ بإضافة مذكرتك الأولى' if lang == 'ar' else 'Start by adding your first note' }}</p>
+    <div style="margin-top:1.5rem;">
+        <a href="/notes/new?lang={{ lang }}" class="btn btn-primary">{{ '➕ مذكرة جديدة' if lang == 'ar' else '➕ New Note' }}</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

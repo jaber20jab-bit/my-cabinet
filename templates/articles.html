@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'المقالات' if lang == 'ar' else 'Articles' }} - {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="section-title">📚 {{ 'المقالات' if lang == 'ar' else 'Articles' }}</h2>
+    <a href="/articles/new?lang={{ lang }}" class="btn btn-primary">➕ {{ 'مقال جديد' if lang == 'ar' else 'New Article' }}</a>
+</div>
+
+<!-- Search & Filter -->
+<div style="display:flex; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+    <form action="/articles" method="get" style="display:flex; gap:0.5rem; flex:1;">
+        <input type="text" name="search" class="form-control" placeholder="{{ 'ابحث في المقالات...' if lang == 'ar' else 'Search articles...' }}" value="{{ search_query }}" style="flex:1;">
+        <input type="hidden" name="lang" value="{{ lang }}">
+        <button type="submit" class="btn btn-secondary">🔍</button>
+    </form>
+    
+    {% if categories %}
+    <select class="form-control" style="width:auto;" onchange="window.location.href='/articles?category='+this.value+'&lang={{ lang }}'">
+        <option value="">{{ 'كل التصنيفات' if lang == 'ar' else 'All Categories' }}</option>
+        {% for cat in categories %}
+        <option value="{{ cat.category }}" {{ 'selected' if current_category == cat.category else '' }}>{{ cat.category }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+</div>
+
+<!-- Articles Grid -->
+{% if articles %}
+<div class="articles-grid">
+    {% for article in articles %}
+    <a href="/articles/{{ article.id }}?lang={{ lang }}" style="text-decoration:none;">
+        <div class="card">
+            <div class="card-title">{{ article.title }}</div>
+            <div class="card-content">{{ article.content }}</div>
+            <div class="card-meta">
+                <span class="card-category">{{ article.category }}</span>
+                <span>{{ article.created_at }}</span>
+            </div>
+            {% if article.tags %}
+            <div class="tags">
+                {% for tag in article.tags.split(',') %}
+                {% if tag.strip() %}
+                <span class="tag">#{{ tag.strip() }}</span>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-state-icon">📭</div>
+    <h3>{{ 'لا توجد مقالات' if lang == 'ar' else 'No articles found' }}</h3>
+    <p>{{ 'ابدأ بإضافة مقالك الأول' if lang == 'ar' else 'Start by adding your first article' }}</p>
+    <div style="margin-top:1.5rem;">
+        <a href="/articles/new?lang={{ lang }}" class="btn btn-primary">{{ '➕ مقال جديد' if lang == 'ar' else '➕ New Article' }}</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

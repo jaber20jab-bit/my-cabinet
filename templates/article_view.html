@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}{% endblock %}
+
+{% block content %}
+<div class="article-view">
+    <!-- Actions Bar -->
+    <div style="display:flex; gap:1rem; margin-bottom:1.5rem; justify-content:space-between;">
+        <a href="/articles?lang={{ lang }}" class="btn btn-secondary">← {{ 'رجوع' if lang == 'ar' else 'Back' }}</a>
+        <div style="display:flex; gap:0.5rem;">
+            <a href="/articles/{{ article.id }}/edit?lang={{ lang }}" class="btn btn-secondary">✏️ {{ 'تعديل' if lang == 'ar' else 'Edit' }}</a>
+            <form action="/articles/{{ article.id }}/delete" method="post" class="delete-form" style="display:inline;">
+                <button type="submit" class="btn btn-danger">🗑️ {{ 'حذف' if lang == 'ar' else 'Delete' }}</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Article Header -->
+    <div class="article-header">
+        <h1 class="article-title">{{ article.title }}</h1>
+        <div class="card-meta">
+            <span class="card-category">{{ article.category }}</span>
+            <span>📅 {{ article.created_at }}</span>
+            {% if article.updated_at != article.created_at %}
+            <span>✏️ {{ 'تم التعديل' if lang == 'ar' else 'Updated' }}: {{ article.updated_at }}</span>
+            {% endif %}
+        </div>
+        {% if article.tags %}
+        <div class="tags" style="margin-top:1rem;">
+            {% for tag in article.tags.split(',') %}
+            {% if tag.strip() %}
+            <span class="tag">#{{ tag.strip() }}</span>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Article Body -->
+    <div class="article-body">{{ article.content }}</div>
+</div>
+{% endblock %}

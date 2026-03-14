@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ 'rtl' if lang == 'ar' else 'ltr' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}خزانتي{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{{ 'ltr' if lang == 'en' else '' }}">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="/?lang={{ lang }}" class="logo">🗄️ {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}</a>
+            <nav class="nav">
+                <a href="/?lang={{ lang }}" class="{{ 'active' if request.url.path == '/' else '' }}">{{ 'الرئيسية' if lang == 'ar' else 'Home' }}</a>
+                <a href="/articles?lang={{ lang }}" class="{{ 'active' if '/articles' in request.url.path else '' }}">{{ 'المقالات' if lang == 'ar' else 'Articles' }}</a>
+                <a href="/notes?lang={{ lang }}" class="{{ 'active' if '/notes' in request.url.path else '' }}">{{ 'المذكرات' if lang == 'ar' else 'Notes' }}</a>
+                <button class="search-toggle" onclick="toggleSearch()">🔍</button>
+                <a href="#" onclick="toggleLang()" style="font-size:0.8rem;">{{ 'EN' if lang == 'ar' else 'عربي' }}</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)toggleSearch()">
+        <div class="search-box">
+            <form action="/search" method="get">
+                <input type="text" name="q" class="search-input" placeholder="{{ 'ابحث في المقالات والمذكرات...' if lang == 'ar' else 'Search articles and notes...' }}" autofocus>
+                <input type="hidden" name="lang" value="{{ lang }}">
+            </form>
+        </div>
+    </div>
+    
+    <!-- Main -->
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer style="text-align:center; padding:2rem; color:var(--text-muted); font-size:0.8rem; border-top:1px solid var(--border);">
+        <p>© 2026 {{ 'خزانتي الرقمية' if lang == 'ar' else 'My Digital Cabinet' }} • {{ 'صُنع بـ 🤖 بواسطة تومي' if lang == 'ar' else 'Made with 🤖 by Tommy' }}</p>
+    </footer>
+    
+    <script src="/static/js/main.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

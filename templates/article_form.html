@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'مقال جديد' if lang == 'ar' else 'New Article' }} - {{ 'خزانتي' if lang == 'ar' else 'My Cabinet' }}{% endblock %}
+
+{% block content %}
+<div class="article-view">
+    <div class="section-header">
+        <h2 class="section-title">
+            {% if article %}
+                {{ '✏️ تعديل المقال' if lang == 'ar' else '✏️ Edit Article' }}
+            {% else %}
+                {{ '➕ مقال جديد' if lang == 'ar' else '➕ New Article' }}
+            {% endif %}
+        </h2>
+    </div>
+    
+    <form action="{{ '/articles/' ~ article.id ~ '/update' if article else '/articles/create' }}" method="post" class="card">
+        <div class="form-group">
+            <label>{{ 'العنوان' if lang == 'ar' else 'Title' }}</label>
+            <input type="text" name="title" class="form-control" value="{{ article.title if article else '' }}" required placeholder="{{ 'أدخل عنوان المقال...' if lang == 'ar' else 'Enter article title...' }}">
+        </div>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div class="form-group">
+                <label>{{ 'التصنيف' if lang == 'ar' else 'Category' }}</label>
+                <select name="category" class="form-control">
+                    <option value="عام" {{ 'selected' if article and article.category == 'عام' else '' }}>{{ 'عام' if lang == 'ar' else 'General' }}</option>
+                    <option value="صحة" {{ 'selected' if article and article.category == 'صحة' else '' }}>{{ 'صحة' if lang == 'ar' else 'Health' }}</option>
+                    <option value="تقنية" {{ 'selected' if article and article.category == 'تقنية' else '' }}>{{ 'تقنية' if lang == 'ar' else 'Technology' }}</option>
+                    <option value="علوم" {{ 'selected' if article and article.category == 'علوم' else '' }}>{{ 'علوم' if lang == 'ar' else 'Science' }}</option>
+                    <option value="ثقافة" {{ 'selected' if article and article.category == 'ثقافة' else '' }}>{{ 'ثقافة' if lang == 'ar' else 'Culture' }}</option>
+                    <option value="أدب" {{ 'selected' if article and article.category == 'أدب' else '' }}>{{ 'أدب' if lang == 'ar' else 'Literature' }}</option>
+                    <option value="اقتصاد" {{ 'selected' if article and article.category == 'اقتصاد' else '' }}>{{ 'اقتصاد' if lang == 'ar' else 'Economics' }}</option>
+                    <option value="رياضة" {{ 'selected' if article and article.category == 'رياضة' else '' }}>{{ 'رياضة' if lang == 'ar' else 'Sports' }}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>{{ 'اللغة' if lang == 'ar' else 'Language' }}</label>
+                <select name="language" class="form-control">
+                    <option value="ar" {{ 'selected' if article and article.language == 'ar' else '' }}>العربية</option>
+                    <option value="en" {{ 'selected' if article and article.language == 'en' else '' }}>English</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>{{ 'الوسوم (Tags) - افصل بينها بفاصلة' if lang == 'ar' else 'Tags - separated by comma' }}</label>
+            <input type="text" name="tags" class="form-control" value="{{ article.tags if article else '' }}" placeholder="{{ 'مثال: صحة، تغذية، رياضة' if lang == 'ar' else 'e.g., health, nutrition, sport' }}">
+        </div>
+        
+        <div class="form-group">
+            <label>{{ 'المحتوى' if lang == 'ar' else 'Content' }}</label>
+            <textarea name="content" class="form-control" required placeholder="{{ 'اكتب محتوى المقال هنا...' if lang == 'ar' else 'Write your article content here...' }}">{{ article.content if article else '' }}</textarea>
+        </div>
+        
+        <div style="display:flex; gap:1rem; justify-content:flex-end;">
+            <a href="/articles?lang={{ lang }}" class="btn btn-secondary">{{ 'إلغاء' if lang == 'ar' else 'Cancel' }}</a>
+            <button type="submit" class="btn btn-primary">
+                {{ '💾 حفظ' if lang == 'ar' else '💾 Save' }}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
